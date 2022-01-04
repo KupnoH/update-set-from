@@ -1,0 +1,12 @@
+{
+  "name": "update-set-from",
+  "version": "1.0.0",
+  "description": "package contains code for update-set-from article for itilin.by/blog",
+  "main": "index.js",
+  "scripts": {},
+  "author": "Artyom Ilyin",
+  "license": "GNU",
+  "dependencies": {
+    "knex": "^0.95.15"
+  }
+}
