@@ -28,3 +28,7 @@ INSERT INTO Events
        		   (5, 3, 'test text'), 
        		   (6, 4, 'test text'), 
        		   (7, 5, 'test text');
+
+--- Alter Notifications table to have Date column.
+ALTER TABLE Notifications
+		ADD COLUMN Date date;
