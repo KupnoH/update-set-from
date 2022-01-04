@@ -6,31 +6,13 @@ export function up(knex: Knex): Promise<void> {
         // Create Date column in Notifications table.
         table.specificType('Date', 'date').defaultTo('');
     }).then(() => {
-        // Выполняем SELECT запрос для получения ID события и даты
-        // Run SELECT query to get Event ID and Date.
+        // Выполняем запрос UPDATE-SET-FROM с привязкой к ID события из таблицы Events.
+        // Run UPDATE-SET-FROM query with relation to ID from Events table.
         return knex.raw(`
-			SELECT ID, Date from Events;
-		`);
-    }).then((data) => {
-        // Переменная data - массив следующих объектов:
-        // data variable is the array of rows:
-        // {
-        //     ID: 1,
-        //     Date: '05-22-2021',
-        // },
-
-        // Собираем новую строку запроса для обновления данных в таблице Notifications.
-        // Create query string and gather all the necessary values to update Notifications table.
-        let query: string = '';
-        data.rows.forEach((row: Record<string, []>) => {
-            query += `UPDATE Notifications(Date)
-			VALUES('${row.date}')
-            WHERE EventID='${row.id}';`;
-        });
-
-        // Выполняем запрос
-        // Run the query.
-        return knex.raw(query);
+            UPDATE Notifications
+            SET Date = Events.date
+            FROM Events WHERE Event.ID = Notifications.EventID;
+        `);
     });
 }
 

@@ -32,3 +32,8 @@ INSERT INTO Events
 --- Alter Notifications table to have Date column.
 ALTER TABLE Notifications
 		ADD COLUMN Date date;
+
+--- Update Notifications table with data from Events table.
+UPDATE Notifications
+		SET Date = Events.Date
+		FROM Events WHERE Events.id = Notifications.EventID;
